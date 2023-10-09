@@ -1,0 +1,10 @@
+Helena Dias, 001, helena001, helena.dias@email.com
+Miguel Camargo, 002, miguel002
+Alice Farias, 003, alice003
+Arthur Medeiros, 004, artur004
+Laura Ribeiro, 005, laura005
+Heitor Cunha, 006, heitor006
+Valentina Freitas, 007, valentina007
+Bernardo Lira, 008, bernardo008
+Manuela Martins, 009, manuela009
+Davi Rangel, 010, davi010

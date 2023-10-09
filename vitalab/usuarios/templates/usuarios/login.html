@@ -1,0 +1,52 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block title %}VitaLAB - Login{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/style.css' %}">
+{% endblock head %}
+
+{% block conteudo %}
+    <div class="container">
+        
+        {% if messages %}
+        <br>
+        {% for message in messages %}
+        <div class="alert alert-dismissible fade show {{ message.tags }}" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <br>
+        
+        <h3 class="font-destaque-secundaria"> <img width="10%" src="{% static 'geral/img/logo.png' %}" alt="Logo VitaLAB">Entrar</h3>
+        <div>
+            <form action="{% url 'usuarios:login' %}" method="post">{% csrf_token %}
+                <div class="row p-2">
+                    <div class="col-md">
+                        <label for="username">CPF:</label>
+                        <input class="input-default" type="text" name="cpf" id="cpf" autofocus autocomplete="false">
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-md">
+                        <label for="senha">Senha:</label>
+                        <input class="input-default" type="password" name="senha" id="senha">
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col-md">
+                        <button type="submit" class="btn btn-primary mx-4">Entrar</button>
+                        <a href="{% url 'usuarios:cadastro' %}" class="btn btn-outline-primary" role="button">Cadastrar-se</a>
+                    </div>
+                    {% comment %} <div class="col-md-2">
+                        <a href="{% url 'usuarios:cadastro' %}" class="btn btn-outline-primary" role="button">Cadastrar-se</a>
+                    </div> {% endcomment %}
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock conteudo %}

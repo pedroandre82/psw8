@@ -1,0 +1,65 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block title %}VitaLAB - Gerenciar pedidos{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'exames/css/gerenciar_pedidos.css' %}">
+    <link rel="stylesheet" href="{% static 'exames/css/style.css' %}">
+{% endblock head %}
+
+{% block conteudo %}
+    <div class="container">
+        <!-- messages -->
+        <div class="row">
+            {% if messages %}
+                <br>
+                {% for message in messages %}
+                    <div class="alert alert-dismissible fade show {{ message.tags }}" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!-- conteudo -->
+        <br>
+        <br>
+        <div class="card card-view">
+            <table>
+                <tr>
+                    <th>Solicitação</th>
+                    <th>Data</th>
+                    <th>Exames solicitados</th>
+                    <th>Ação</th>
+                </tr>
+                {% for pedido in pedidos %}
+                    <tr class="linha-tabela">
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.data }}</td>
+                        <td>
+                            <select class="form-select">
+                                {% for solicitacao in pedido.exames.all %}
+                                    <option value="" style="color: black;">{{ solicitacao.exame.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <a href="{% url 'exames:cancelar_pedido' pedido.id %}" class="btn btn-danger {% if not pedido.agendado %} disabled {% endif %}">Cancelar</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <br>
+                    <h5>Nenhum pedido de exames</h5>
+                {% endfor %}
+            </table>
+            <div class="row p-3">
+                <div class="col-md-3">
+                    <div class="row">
+                        <a class="btn btn-primary" href='{% url "exames:solicitar" %}' role="button">Nova solicitação</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock conteudo %}

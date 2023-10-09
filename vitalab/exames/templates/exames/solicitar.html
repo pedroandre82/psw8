@@ -1,0 +1,81 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block title %}VitaLAB - Solicitação de Exames{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'exames/css/style.css' %}">
+{% endblock head %}
+
+{% block conteudo %}
+
+    <div class="container">
+        <div class="row">
+            {% if messages %}
+                <br>
+                {% for message in messages %}
+                    <div class="alert alert-dismissible fade show {{ message.tags }}" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md">
+                <h3 class="font-destaque">Solicitar Exames</h3>
+                <form action="" method="POST">{% csrf_token %}
+                    <h5>Selecione os exames para realizar:</h5>
+                    <select class="select form-control bg-select" multiple name="exames_escolhidos">
+                        {% for exame in tipos_exames %}
+                            <option class="opt" value="{{ exame.id }}">{{ exame }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <button type="submit" class="btn-default tamanho-2" name="orcamento" value="solicitar">Solicitar orçamento</button>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <!-- Espaço vazio -->
+            </div>
+            <div class="col-md">
+                <div class="card">
+                    {% if exames_solicitados %}
+                        <br>
+                        {% for exame in exames_solicitados %}
+                            <div>
+                                <img width="15px"
+                                    {% if exame.disponivel %} 
+                                        src="{% static 'exames/img/check.png' %}" alt="Disponível"
+                                    {% else %}
+                                        src="{% static 'exames/img/exit.png' %}" alt="Indisponível"
+                                    {% endif %}
+                                >
+                                <b>{{ exame }}</b>
+                                <span class="previa-preco">R$ {{ exame.preco|floatformat:2 }}</span>
+                            </div>
+                        {% endfor %}
+                        <hr style="color: white;">
+                        <b>Preço total:</b>
+                        <span class="previa-preco">R$ {{ preco_total|floatformat:2 }}</span>
+                        <br>
+                        <form action="{% url 'exames:fechar_pedido' %}" method="post">{% csrf_token %}
+                            {% for exame in exames_solicitados %}
+                                {% if exame.disponivel %}
+                                    <input type="hidden" name="exames" value="{{ exame.id }}">
+                                {% endif %}
+                            {% endfor %}
+                            <button type="submit" class="btn-secundario">Finalizar pedido</button>
+                        </form>
+                    {% else %}
+                        <div>
+                            <h5>Selecione exames e peça um orçamento</h5>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock conteudo %}

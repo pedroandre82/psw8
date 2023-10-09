@@ -1,0 +1,70 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block title %}VitaLAB - Gerenciar exames{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'exames/css/gerenciar_pedidos.css' %}">
+    <link rel="stylesheet" href="{% static 'exames/css/gerenciar_exames.css' %}">
+    <link rel="stylesheet" href="{% static 'exames/css/style.css' %}">
+{% endblock head %}
+
+{% block conteudo %}
+
+    <div class="container">
+
+        <div class="row">
+            {% if messages %}
+                <br>
+                {% for message in messages %}
+                    <div class="alert alert-dismissible fade show {{ message.tags }}" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="card card-view">
+            <div class="sub-card">
+                <h4>Exames de sangue</h4>
+                {% for exame in exames_sangue %}
+                    <div class="row">
+                        <div class="col-md"><h5>{{ exame.exame.nome }}</h5></div>
+                        <div class="col-md">{{ exame.html_badge }}</div>
+                        <div class="col-md">
+                            {% if exame.status == 'F' %}
+                            <a href="{% url 'exames:permitir_abrir_exame' exame.id %}" class="btn btn-light">Abrir</a>
+                            {% else %}
+                            <a href="#" class="btn btn-light disabled">Abrir</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br>
+                {% empty %}
+                <h5>Nenhum exame desse tipo</h5>
+                {% endfor %}
+                <hr style="color: white;">
+                <h4>Exames de imagem</h4>
+                {% for exame in exames_imagem %}
+                    <div class="row">
+                        <div class="col-md"><h5>{{ exame.exame.nome }}</h5></div>
+                        <div class="col-md">{{ exame.html_badge }}</div>
+                        <div class="col-md">
+                            {% if exame.status == 'F' %}
+                            <a href="{% url 'exames:permitir_abrir_exame' exame.id %}" class="btn btn-light">Abrir</a>
+                            {% else %}
+                            <a href="#" class="btn btn-light disabled">Abrir</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br>
+                {% empty %}
+                    <h5>Nenhum exame desse tipo</h5>
+                {% endfor %}
+                <hr style="color: white;">
+            </div>
+        </div>
+    </div>
+
+{% endblock conteudo %}

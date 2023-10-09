@@ -1,0 +1,77 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block title %}VitaLAB - Cadastro{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/style.css' %}">
+{% endblock head %}
+
+{% block conteudo %}
+    <div class="container">
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+                <div class="alert alert-dismissible fade show {{ message.tags }}" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <br>
+        <h3>Cadastre-se</h3>
+
+        <form action="{% url "usuarios:cadastro" %}" method="post">{% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    <center><img src="{% static 'geral/img/logo.png' %}" alt="Logo VitaLAB"></center>
+                    <h4 class="text-center display-6 font-destaque">VitaLAB</h4>
+                </div>
+                <div class="col md-4">
+                    <div class="row">
+                        <div class="col">
+                            <label for="primeiro_nome">Primeiro nome:</label>
+                            <br>
+                            <input autofocus class="input-default w100" type="text" name="primeiro_nome" id="primeiro_nome">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="sobrenome">Sobrenome:</label>
+                            <br>
+                            <input class="input-default w100" type="text" name="sobrenome" id="sobrenome">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="cpf">CPF:</label>
+                    <br>
+                    <input class="input-default w100" type="text" name="cpf" id="cpf">
+                </div>
+                <div class="col-md-8">
+                    <label for="email">Email:</label>
+                    <br>
+                    <input class="input-default w100" type="email" name="email" id="email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="senha">Senha:</label>
+                    <br>
+                    <input class="input-default w100" type="password" name="senha" id="senha">
+                </div>
+                <div class="col-md-6">
+                    <label for="confirmar_senha">Confirmar senha:</label>
+                    <br>
+                    <input class="input-default w100" type="password" name="confirmar_senha" id="confirmar_senha">
+                </div>
+            </div>
+            <br>
+            <input type="submit" value="Cadastrar" class="btn-default">
+        </form>
+
+    </div>
+{% endblock conteudo %}
+
