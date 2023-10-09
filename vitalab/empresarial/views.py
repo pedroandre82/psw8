@@ -47,7 +47,7 @@ def cliente(request: HttpRequest, id_cliente):
 def exame_cliente(request, id_exame):
     exame = SolicitacaoExame.objects.get(id=id_exame)
     return render(request=request, 
-                  template_name='exame_cliente.html', 
+                  template_name='empresarial/exame_cliente.html', 
                   context={'exame': exame})
 
 

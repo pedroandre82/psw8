@@ -4,7 +4,11 @@ Alice Farias, 003, alice003
 Arthur Medeiros, 004, artur004
 Laura Ribeiro, 005, laura005
 Heitor Cunha, 006, heitor006
-Valentina Freitas, 007, valentina007
+Valentina Freitas, 007, valentina007  **staff**
 Bernardo Lira, 008, bernardo008
 Manuela Martins, 009, manuela009
 Davi Rangel, 010, davi010
+----
+ADMIN
+user: admin
+senha: admin
